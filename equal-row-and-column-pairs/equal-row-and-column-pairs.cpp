@@ -1,9 +1,21 @@
+struct VectorHasher {
+    int operator()(const vector<int> &V) const {
+        int hash = V.size();
+        for(auto &i : V) {
+            hash^=i;
+        }
+        return hash;
+    }
+};
+
+
+
 class Solution {
 public:
     int equalPairs(vector<vector<int>>& grid) {
         // Number to store the count of equal pairs.
         int ans = 0;
-        map<vector<int>, int> mp;
+        unordered_map<vector<int>,int,VectorHasher> mp;
         // Storing each row int he map
         for (int i = 0; i < grid.size(); i++)
             mp[grid[i]]++;
