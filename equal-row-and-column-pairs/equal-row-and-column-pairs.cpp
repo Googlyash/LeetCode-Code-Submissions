@@ -1,7 +1,7 @@
 struct VectorHasher {
     int operator()(const vector<int> &V) const {
         int hash = V.size();
-        for(auto &i : V) {
+        for(auto i : V) {
             hash^=i;
         }
         return hash;
