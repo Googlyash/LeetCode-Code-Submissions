@@ -27,7 +27,8 @@ public:
             for (int j = 0; j < grid.size(); j++)
                 v.push_back(grid[j][i]);
             // Add the number of times that column appeared as a row.
-            ans += mp[v];
+            auto it = mp.find(v); 
+            if (it != mp.end()) ans += it->second;
         }
         // Return the number of count
         return ans;
