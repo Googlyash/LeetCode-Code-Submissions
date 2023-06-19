@@ -7,8 +7,9 @@ public:
     int maxSubArray(vector<int>& a) {
         int i,n=a.size(),sum=INT_MIN,mx=0;
         for(i=0;i<n;i++){
-            mx=max(a[i],mx+a[i]);
+            mx=mx+a[i];
             sum=max(mx,sum);
+            if(mx<0)mx=0;
         }
         return sum;
     }
