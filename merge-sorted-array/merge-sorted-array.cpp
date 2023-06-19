@@ -1,19 +1,21 @@
+//Comments- Excellent Solution
+
 class Solution {
 public:
     void merge(vector<int>& v1, int m, vector<int>& v2, int n) {
-        int v[n+m],i;
-        for(i=0;i<n;i++)
-        {
-            v[i]=v2[i];
+        if(m==0){
+            v1=v2;
+            return;
         }
-        for(i=0;i<m;i++)
-        {
-            v[i+n]=v1[i];
+        int i=m-1,j=n-1, k=n+m-1;
+        while(i>=0 && j>=0){
+            if(j>=0 && v1[i]<v2[j]){
+                v1[k--]=v2[j--];
+            }
+            else v1[k--]= v1[i--];
         }
-        sort(v,v+n+m);
-        for(i=0;i<n+m;i++)
-        {
-            v1[i]=v[i];
+        while(j>=0){
+            v1[k--]=v2[j--];
         }
     }
 };
