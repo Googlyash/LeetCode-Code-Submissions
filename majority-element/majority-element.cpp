@@ -1,3 +1,5 @@
+//Striver day3
+//Self
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
