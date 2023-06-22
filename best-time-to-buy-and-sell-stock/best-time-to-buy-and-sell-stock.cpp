@@ -1,14 +1,14 @@
+//Striver Day1
+//Self-resolved
+
 class Solution {
 public:
-    int maxProfit(vector<int>&v) {
-        int buy=INT_MAX;
-        int prof=0;
-
-        for(int i=0;i<v.size();i++)
-        {
-            buy=min(buy,v[i]);
-            prof=max(prof, v[i]-buy);
+    int maxProfit(vector<int>& prices) {
+        int pro=0,mnbuy=INT_MAX;
+        for(int i=0;i<prices.size();i++){
+            pro=max(pro,prices[i]-mnbuy);
+            mnbuy=min(mnbuy,prices[i]);
         }
-        return prof;
+        return pro;
     }
 };
