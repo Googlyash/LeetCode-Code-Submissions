@@ -1,18 +1,15 @@
+//Self-solved Method2- front-traversal
+
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         int n=prices.size();
-        int pro=0,hisell=prices[n-1],currpro=0;
-        for(int i=n-1;i>=0;i--){
-            if(prices[i]> hisell){
-                hisell=prices[i];
-                pro+=currpro;
-                currpro=0;
+        int pro=0,losell=prices[0],currpro=0;
+        for(int i=0;i<n;i++){
+            if(prices[i]>losell){
+                pro+=prices[i]-losell;
             }
-            else{
-                currpro+=hisell-prices[i];
-                hisell=prices[i];
-            }
+            losell=prices[i];
         }
         return pro+currpro;
     }
