@@ -1,13 +1,20 @@
 //Striver Day1
-//Self-resolved
+//Earlier Self-resolved
+//Comments- Back Traversal
 
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int pro=0,mnbuy=INT_MAX;
-        for(int i=0;i<prices.size();i++){
-            pro=max(pro,prices[i]-mnbuy);
-            mnbuy=min(mnbuy,prices[i]);
+        int pro=0,n=prices.size();
+        int  hisell=prices[n-1];
+        for(int i=n-1;i>=0;i--){
+            if(prices[i]>hisell){
+                hisell=prices[i];
+            }
+            else
+            {
+                pro=max(pro,hisell-prices[i]);
+            }
         }
         return pro;
     }
