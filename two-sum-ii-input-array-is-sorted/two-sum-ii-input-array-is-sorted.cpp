@@ -1,20 +1,22 @@
 //Self-solved
-//But using O(n) space
+//Comments ;-;
 
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
         int n=nums.size();
+        int l=0,r=n-1;
         vector<int>v;
-        unordered_map<int,pair<int,int>>mp;
         for(int i=0;i<n; i++){
-            mp[target-nums[i]]={1,i};
-        }
-        for(int i=0;i<n;i++){
-            if(mp[nums[i]].first>0){
-                v.push_back(i+1);
-                v.push_back(mp[nums[i]].second+1);
-                return v;
+            if(nums[l]+nums[r]==target){
+                return {l+1,1+r};
+            }
+            else if(nums[l]+nums[r]<target)
+            {
+                l++;
+            }
+            else{
+                r--;
             }
         }
         return {-1,-1};
