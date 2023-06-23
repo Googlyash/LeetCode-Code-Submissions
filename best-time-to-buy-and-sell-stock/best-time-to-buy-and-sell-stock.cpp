@@ -1,5 +1,4 @@
-//Striver Day1
-//Earlier Self-resolved
+//Striver Day1 Self-resolved
 //Comments- Back Traversal
 
 class Solution {
@@ -8,13 +7,8 @@ public:
         int pro=0,n=prices.size();
         int  hisell=prices[n-1];
         for(int i=n-1;i>=0;i--){
-            if(prices[i]>hisell){
-                hisell=prices[i];
-            }
-            else
-            {
-                pro=max(pro,hisell-prices[i]);
-            }
+            hisell=max(hisell,prices[i]);
+            pro=max(pro,hisell-prices[i]);
         }
         return pro;
     }
