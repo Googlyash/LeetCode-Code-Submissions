@@ -1,5 +1,5 @@
-//Striver Day1 Self-resolved
-//Comments- Back Traversal
+//Striver Day1
+//Self-resolved (method2)- Back Traversal
 
 class Solution {
 public:
