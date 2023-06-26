@@ -1,4 +1,5 @@
 //Striver BinarySearch
+//Self
 
 class Solution {
 public:
