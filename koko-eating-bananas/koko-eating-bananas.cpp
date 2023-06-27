@@ -4,10 +4,15 @@
 class Solution {
 public:
     int detHrs(vector<int>&a, int speed,int h){
-        long long hrs=0;
+        long long hrs=0,k=0;
         for(int i=0;i<a.size();i++){
-            hrs+=ceil((double)a[i]/(double)speed);
+            if(k>0){
+                hrs+=(k-1)/speed+1;
+                k=0;
+            }
+            k=a[i];
         }
+        if(k>0)hrs+=(k-1)/speed+1;
         return hrs<=h;
     }
     int minEatingSpeed(vector<int>& a, int h) {
