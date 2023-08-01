@@ -1,3 +1,5 @@
+//POTD Aug'1,2023
+
 class Solution {
 private:
     void f(int n, int k, vector<int>&v, vector<vector<int>>& a){
@@ -22,3 +24,5 @@ public:
         return a;
     }
 };
+
+//Self
