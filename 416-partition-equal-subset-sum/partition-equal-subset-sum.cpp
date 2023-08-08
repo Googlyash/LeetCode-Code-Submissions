@@ -1,6 +1,6 @@
 //Striver SDE Sheet
 //Aug'8, 2023 04:53 pm
-//Tabulation
+//Space Optimization
 
 class Solution {
 public:
@@ -12,7 +12,6 @@ public:
         }
         if(sum%2==1)return false;
 
-        // vector<vector<int>>dp(n+1, vector<int>(sum/2 +1, 0));
         vector<int>pre(sum/2 +1, 0), cur(sum/2+1, 0);
         pre[0]=true;
         for(int i=n-1; i>=0; i--){
