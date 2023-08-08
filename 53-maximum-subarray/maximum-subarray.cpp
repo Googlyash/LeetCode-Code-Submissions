@@ -10,7 +10,6 @@ public:
         for(int i=1;i<n;i++){
             cur=max(a[i], cur+a[i]);
             mx=max(cur, mx);
-            if(cur<0)cur=0;
         }
         return mx;
     }
