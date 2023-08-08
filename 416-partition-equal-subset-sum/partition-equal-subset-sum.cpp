@@ -12,18 +12,20 @@ public:
         }
         if(sum%2==1)return false;
 
-        vector<vector<int>>dp(n+1, vector<int>(sum/2 +1, 0));
-        for(int i=0;i<=n;i++)dp[i][0]=true;
+        // vector<vector<int>>dp(n+1, vector<int>(sum/2 +1, 0));
+        vector<int>pre(sum/2 +1, 0), cur(sum/2+1, 0);
+        pre[0]=true;
         for(int i=n-1; i>=0; i--){
           for(int j=1; j<=sum/2; j++){
-            int nottake= dp[i+1][j];
+            int nottake= pre[j];
             int take= false;
             if(nums[i]<=j){
-                take= dp[i+1][j-nums[i]];
+                take= pre[j-nums[i]];
             }
-            dp[i][j]= (take || nottake);
+            cur[j]= (take || nottake);
           }
+          pre=cur;
         }
-        return dp[0][sum/2];
+        return pre[sum/2];
     }
 };
