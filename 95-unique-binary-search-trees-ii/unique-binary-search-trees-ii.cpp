@@ -12,16 +12,19 @@
  */
 class Solution {
 private:
-    vector<TreeNode*> gene(int strt, int end){
+    vector<TreeNode*> gene(int strt, int end, map<pair<int, int>, vector<TreeNode*>>&mp){
         vector<TreeNode*> v;
         if(strt> end){
             v.push_back(NULL);
             return v;
         }
 
+        if(mp.find({strt, end})!= mp.end()){
+            return mp[{strt, end}];
+        }
         for(int i=strt; i<= end; i++){
-            vector<TreeNode*> left= gene(strt, i-1);
-            vector<TreeNode*> right= gene(i+1, end);
+            vector<TreeNode*> left= gene(strt, i-1, mp);
+            vector<TreeNode*> right= gene(i+1, end, mp);
 
             for(int j=0; j< left.size(); j++){
                 for(int k=0; k< right.size(); k++){
@@ -32,11 +35,12 @@ private:
                 }
             }
         }
-        return v;
+        return mp[{strt, end}]=v;
     }
 public:
     vector<TreeNode*> generateTrees(int n) {
-        return gene(1, n);
+        map<pair<int, int>, vector<TreeNode*>>mp;
+        return gene(1, n, mp);
     }
 };
 
