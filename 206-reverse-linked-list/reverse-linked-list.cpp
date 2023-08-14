@@ -1,5 +1,6 @@
 //Striver SDE Sheet: Day 5
 //Aug'14, 2023 10:20 pm
+//Recursive 
 
 /**
  * Definition for singly-linked list.
@@ -12,22 +13,15 @@
  * };
  */
 class Solution {
+private:
+    ListNode*reversing(ListNode*head, ListNode*next, ListNode*prev){
+        if(head==NULL)return prev;
+        return reversing(head->next, (head->next=prev, next), head);
+    }
 public:
     ListNode* reverseList(ListNode* head) {
-        if(head==NULL)return head;
-        ListNode* temp=head;
-        vector<int>v;
-        while(temp!=NULL){
-            v.push_back(temp->val);
-            temp=temp->next;
-        }
-        temp=head;
-        reverse(v.begin(), v.end());
-        int i=0;
-        while(temp!=NULL){
-            temp->val=v[i++];
-            temp=temp->next;
-        }
-        return head;
+        return reversing(head, NULL, NULL);
     }
 };
+
+//Comments
