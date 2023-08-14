@@ -1,42 +1,41 @@
 //POTD Aug'14, 2023
-//Aug'14,2023 11:09 am
-//Quicksort: Editorial
+//Aug'14,2023 11:25 am
+//CountingSort: Editorial
 
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
-        return quickSelect(nums, k);
-    }
-    
-    int quickSelect(vector<int>& nums, int k) {
-        int pivot = nums[rand() % nums.size()];
-        
-        vector<int> left;
-        vector<int> mid;
-        vector<int> right;
+        int minValue = INT_MAX;
+        int maxValue = INT_MIN;
         
         for (int num: nums) {
-            if (num > pivot) {
-                left.push_back(num);
-            } else if (num < pivot) {
-                right.push_back(num);
-            } else {
-                mid.push_back(num);
+            minValue = min(minValue, num);
+            maxValue = max(maxValue, num);
+        }
+        
+        vector<int> count(maxValue - minValue + 1);
+        for (int num: nums) {
+            count[num - minValue]++;
+        }
+        
+        int remain = k;
+        for (int num = count.size() - 1; num >= 0; num--) {
+            remain -= count[num];
+            if (remain <= 0) {
+                return num + minValue;
             }
         }
         
-        if (k <= left.size()) {
-            return quickSelect(left, k);
-        }
-        
-        if (left.size() + mid.size() < k) {
-            return quickSelect(right, k - left.size() - mid.size());
-        }
-        
-        return pivot;
-        
+        return -1;
     }
 };
 
-//Time Complexity: O(n), Worst O(n^2);
-//Space complexity: O(n)
+/*Given n as the length of nums and mmm as maxValue - minValue,
+Time complexity: O(n+m)
+We first find maxValue and minValue, which costs O(n)
+Next, we initialize count, which costs O(m)
+Next, we populate count, which costs O(n)
+Finally, we iterate over the indices of count, which costs up to O(m)
+
+Space complexity: O(m)
+We create an array count with size O(m)*/
