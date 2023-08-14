@@ -17,31 +17,25 @@ public:
         ListNode*ans=new ListNode();
         ListNode*cur1=list1, *cur2=list2;
         ListNode*temp=ans;
-        while(cur1!=NULL && cur2!=NULL){
-            ListNode*cur=new ListNode();
+        while(cur1 && cur2){
             if(cur1->val<=cur2->val){
-                cur->val=cur1->val;
+                temp->next=cur1;
                 cur1=cur1->next;
             }
             else {
-                cur->val=cur2->val;
+                temp->next=cur2;
                 cur2=cur2->next;
             }
-            temp->next=cur;
             temp=temp->next;
         }
-        while(cur1!=NULL){
-            ListNode*cur=new ListNode();
-            cur->val=cur1->val;
+        while(cur1){
+            temp->next=cur1;
             cur1=cur1->next;
-            temp->next=cur;
             temp=temp->next;
         }
-        while(cur2!=NULL){
-            ListNode*cur=new ListNode();
-            cur->val=cur2->val;
+        while(cur2){
+            temp->next=cur2;
             cur2=cur2->next;
-            temp->next=cur;
             temp=temp->next;
         }
         ans=ans->next;
