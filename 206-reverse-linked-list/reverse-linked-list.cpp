@@ -1,5 +1,5 @@
 //Striver SDE Sheet: Day 5
-//AAug'14, 2023 10:20 pm
+//Aug'14, 2023 10:20 pm
 
 /**
  * Definition for singly-linked list.
