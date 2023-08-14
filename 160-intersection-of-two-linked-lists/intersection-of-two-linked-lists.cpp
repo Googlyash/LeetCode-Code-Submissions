@@ -3,19 +3,16 @@
 
 class Solution {
 public:
-    ListNode *getIntersectionNode(ListNode *a, ListNode *b) {
-        unordered_map<ListNode*,int> mp1;
-        ListNode*l1=a,*l2=b;
-        while(l1!= NULL)
-        {
-            mp1[l1]=1;
-            l1=l1->next;
+    ListNode *getIntersectionNode(ListNode * headA, ListNode *headB) {
+         if(headA == NULL || headB == NULL) return NULL;
+    
+        ListNode* a = headA;
+        ListNode* b = headB;
+        
+        while( a != b){
+            a = a == NULL? headB : a->next;
+            b = b == NULL? headA : b->next;    
         }
-        while(l2!=NULL)
-        {
-            if(mp1[l2]>0)return l2;
-            l2=l2->next;
-        }
-        return NULL;
+        return a;
     }
 };
