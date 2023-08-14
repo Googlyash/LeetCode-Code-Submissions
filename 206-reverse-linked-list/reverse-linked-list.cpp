@@ -16,7 +16,7 @@ class Solution {
 private:
     ListNode*reversing(ListNode*head, ListNode*next, ListNode*prev){
         if(head==NULL)return prev;
-        return reversing(head->next, (head->next=prev), head);
+        return reversing(head->next, head->next=prev, head);
     }
 public:
     ListNode* reverseList(ListNode* head) {
