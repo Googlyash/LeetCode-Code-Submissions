@@ -6,11 +6,7 @@ public:
     int minimizeMax(vector<int>& arr, int p) {
         int n=arr.size();
         if(n<2)return 0;
-        unordered_map<int, int> mp;
         sort(arr.begin(), arr.end());
-        for(int i=0;i<n;i++){
-            mp[arr[i]]++;
-        }
         int r=arr[n-1]-arr[0], l=0;
         while(l<=r){
             int mid=l+(r-l)/2;
