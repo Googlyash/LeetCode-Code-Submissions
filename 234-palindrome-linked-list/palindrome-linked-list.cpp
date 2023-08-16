@@ -1,5 +1,8 @@
 //Striver SDE Sheet: Day 6
-//Aug'16, 2023 06:18 pm
+//Aug'16, 2023 06:49 pm
+//Good Algo (using Rabbit-Hare Algo)
+
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -14,16 +17,28 @@ class Solution {
 public:
     bool isPalindrome(ListNode* head) {
         if(!head)return false;
-        ListNode*temp=head;
-        vector<int>v;
-        while(temp){
-            v.push_back(temp->val);
-            temp=temp->next;
+        ListNode*slow=head, *fast=head;
+        while(fast && fast->next){
+            slow=slow->next;
+            fast=fast->next->next;
         }
-        for(int i=0;i<v.size()/2;i++){
-            if(v[i]!=v[v.size()-1-i]){
+        ListNode*prev=slow;
+        slow=slow->next;
+        prev->next=NULL;
+        while(slow){
+            ListNode*cur=slow->next;
+            slow->next=prev;
+            prev=slow;
+            slow=cur;
+        }
+        fast=head;
+        slow=prev;
+        while(slow){
+            if(fast->val!= slow->val){
                 return false;
             }
+            fast=fast->next;
+            slow=slow->next;
         }
         return true;
     }
