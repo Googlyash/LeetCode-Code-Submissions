@@ -13,7 +13,7 @@
  */
 class Solution {
     TreeNode* solve(int i, int j, vector<int>&nums){
-        if(i>j || j>=nums.size() || i<0 || (j-i+1)/2<0 || (j-i+1)/2>=nums.size()){
+        if(i>j || j>=nums.size() || i<0){
             return NULL;
         }
         TreeNode*temp=new TreeNode(nums[i+(j-i)/2]);
