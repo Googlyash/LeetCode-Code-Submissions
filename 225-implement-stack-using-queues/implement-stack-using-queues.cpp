@@ -3,37 +3,58 @@
 
 class MyStack {
 public:
-    stack<int>st;
+    queue<int>q1,q2;
     MyStack() {
          
     }
     
     void push(int x) {
-        st.push(x);
+        q1.push(x);
     }
     
     int pop() {
-        if(st.empty()){
+        if(q1.empty()){
             return -1;
         }
-        else {
-            int t=st.top();
-            st.pop();
-            return t;
+        int ans=q1.front();
+        while(!q2.empty()){
+            q2.pop();
         }
+        while(!q1.empty()){
+            int t=q1.front();
+            q1.pop();
+            if(q1.empty()){
+                ans=t;
+                break;
+            }
+            q2.push(t);
+        }
+        q1=q2;
+        return ans;
     }
     
     int top() {
-        if(st.empty()){
+        if(q1.empty()){
             return -1;
         }
-        else {
-            return st.top();
+        int ans=q1.front();
+        while(!q2.empty()){
+            q2.pop();
         }
+        while(!q1.empty()){
+            int t=q1.front();
+            q1.pop();
+            if(q1.empty()){
+                ans=t;
+            }
+            q2.push(t);
+        }
+        q1=q2;
+        return ans;
     }
     
     bool empty() {
-        return st.empty();
+        return q1.empty();
     }
 };
 
