@@ -1,29 +1,29 @@
-//Aug'29, 2023 04:30 pm
+//Aug'29, 2023 04:06 pm
 //Seems much confusing
-//Comments
+//Editorial
 
 class Solution {
 private:
-    int solve(int &cnt, int idx, int n, map<int, int>&mp){
-        if(idx>n)return cnt++;
-
-        for(int i=1;i<=n;i++){
-            if(!mp[i] && (idx%i==0 || i%idx==0)){
-                mp[i]=1;
-                solve(cnt, idx+1, n, mp);
-                mp[i]=0;
+    int cnt=0;
+     void solve(int i, vector<int>&a){
+        if(i==a.size()){
+           cnt++;
+        }
+        for(int j=i;j<a.size(); j++){
+            if((i+1)%a[j]==0 || a[j]%(i+1)==0){
+                swap(a[i], a[j]);
+                solve( i+1, a);
+                swap(a[i], a[j]);
             }
         }
-        cout<<cnt<<endl;
-        return cnt;
     }
 public:
     int countArrangement(int n) {
-        int ans=0;
-        map<int, int>mp;
+        vector<int>a;;
         for(int i=0;i<n;i++){
-            mp[i+1]=0;
+            a.push_back(i+1);
         }
-        return solve(ans, 1, n, mp);
+        solve( 0, a);
+        return cnt;
     }
 };
