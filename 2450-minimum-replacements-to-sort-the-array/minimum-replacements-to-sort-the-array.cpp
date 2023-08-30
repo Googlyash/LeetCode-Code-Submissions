@@ -21,3 +21,6 @@ public:
         return ans;
     }
 };
+
+
+//Weaker solution may break at [12,9,7,6,17,19,21]
