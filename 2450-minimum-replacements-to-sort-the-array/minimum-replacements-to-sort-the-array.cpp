@@ -1,5 +1,6 @@
 //POTD Aug'30, 2023 
 //Aug'30 2023 10:49 pm
+//Comments
 
 #define ll long long
 class Solution {
@@ -14,9 +15,7 @@ public:
             }
             ll curr=  (nums[i]+nums[i+1]-1)/nums[i+1];
             ans+=curr-1;
-            // cout<<curr<<" "<<i<<endl;
             nums[i]= nums[i]/curr;
-            // if(nums[i]==0)nums[i]=nums[i+1];
         }
         return ans;
     }
