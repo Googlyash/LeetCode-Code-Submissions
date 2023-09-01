@@ -1,21 +1,18 @@
-//Sep'1, 2023 10:28 pm
+//Sep'1, 2023 10:33 pm
+//Greedy
 
 class Solution {
 public:
     int jump(vector<int>& nums) {
         int n=nums.size();
-        vector<int>dp(n+1, 1e9);
-        dp[0]=0;
-
-        for(int i=0;i<n;i++){
-            int end=min(n-1, i+nums[i]);
-            for(int j=i;j<=end; j++){
-                dp[end]=min(dp[end], dp[j]+1);
+        int ans=0, curend=0, curfarthest=0;
+        for(int i=0;i<n-1;i++){
+            curfarthest=max(curfarthest, i+nums[i]);
+            if(i==curend){
+                curend=curfarthest;
+                ans++;
             }
         }
-        if(dp[n-1]>=1e9){
-            return -1;
-        }
-        return dp[n-1];
+        return ans;
     }
 };
