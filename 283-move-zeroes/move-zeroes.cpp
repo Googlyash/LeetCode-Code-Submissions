@@ -3,23 +3,17 @@
 
 class Solution {
 public:
-    void moveZeroes(vector<int>&a) {
-        int n=a.size();
-        priority_queue<int, vector<int>, greater<int>>zeroes;
+    void moveZeroes(vector<int>&nums) {
+        int n=nums.size();
+        int j=0;
         for(int i=0;i<n;i++){
-            if(a[i]==0)zeroes.push(i);
-        }
-        if(zeroes.empty())return;
-        for(int i=0;i<n;i++){
-            int pos=zeroes.top();
-            // cout<<pos<<endl;
-            if(pos<i && a[i]!=0){
-                zeroes.pop();
-                zeroes.push(i);
-                swap(a[i], a[pos]);
+            if(nums[i]!=0){
+                nums[j++]=nums[i];
             }
         }
-        return ;
+        for(;j<n;j++){
+            nums[j]=0;
+        }
     }
 };
 
