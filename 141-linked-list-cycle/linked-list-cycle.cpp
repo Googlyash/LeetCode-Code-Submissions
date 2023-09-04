@@ -1,3 +1,4 @@
+//POTD Sep'4, 2023 05:42 pm
 //Striver SDE Sheet: Day 6
 //Aug'16, 2023 06:07 pm
 
@@ -12,17 +13,16 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        if(!head || !(head->next))return false;
+        if(head==NULL || head->next==NULL){
+            return false;
+        }
         ListNode*slow=head, *fast=head->next;
         while(fast && fast->next){
-            if(fast==slow){
+            slow=slow->next;
+            fast=fast->next->next;
+            if(slow==fast){
                 return true;
             }
-            fast=fast->next->next;
-            slow=slow->next;
-        }
-        if(fast==slow){
-            return true;
         }
         return false;
     }
