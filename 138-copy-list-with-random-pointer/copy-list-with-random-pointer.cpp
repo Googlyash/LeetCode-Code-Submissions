@@ -21,36 +21,43 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        if(head==NULL)return head;
-        Node* newnode= new Node(head->val);
-        Node*temp=head;
-        Node*main=newnode;
-        while(temp!=NULL && temp->next!=NULL){
-            Node*cur= new Node(0);
-            main->val=temp->val;
-            if(temp->next)cur->val=temp->next->val;
-            main->next=cur;
-            main=main->next;
-            temp=temp->next;
+        if(!head){
+            return head;
         }
-        temp=head;
-        main=newnode;
-        while(temp!=NULL){
-            if(temp->random==NULL)main->random=temp->random;
-            else {
-                Node*randomTemp=head, *randomcur=newnode;
-                while(randomTemp!=NULL){
-                    if(temp->random==randomTemp){
-                        main->random=randomcur;
-                        break;
-                    }
-                    randomTemp=randomTemp->next;
-                    randomcur=randomcur->next;
-                }
+        Node*original=head;
+        Node*copy=NULL;
+        Node*ans=NULL;
+
+        while(original){
+            Node*temp= new Node(original->val);
+            temp->next=original->next;
+            original->next=temp;
+            original=temp->next;
+        }
+        original=head;
+        while(original){
+            if(original->random!=NULL){
+                original->next->random=original->random->next;
             }
-            temp=temp->next;
-            main=main->next;
+            original=original->next->next;
         }
-        return newnode;
+        original=head;
+        ans=original->next;
+        copy=ans;
+        while(original){
+            copy=original->next;
+            original->next=copy->next;
+            original=original->next;
+            if(original){
+                copy->next=original->next;
+            }
+            else {
+                copy->next=NULL;
+            }
+        }
+        return ans;
     }
 };
+
+//Earlier self solved at 05:58 pm in 20:21 minutes, O(n)
+//Comments : O(1)
