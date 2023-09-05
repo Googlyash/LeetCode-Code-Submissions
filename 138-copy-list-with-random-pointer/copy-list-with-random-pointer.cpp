@@ -1,6 +1,6 @@
 //POTD Sep'5, 2023
 //Sep'5, 2023 05:58 pm
-
+//Self
 
 /*
 // Definition for a Node.
@@ -25,14 +25,11 @@ public:
         Node* newnode= new Node(head->val);
         Node*temp=head;
         Node*main=newnode;
-        map<Node*, Node*>mp, mp1;
-        // int i=0;
         while(temp!=NULL && temp->next!=NULL){
             Node*cur= new Node(0);
             main->val=temp->val;
             if(temp->next)cur->val=temp->next->val;
             main->next=cur;
-            mp[temp]=temp->random;
             main=main->next;
             temp=temp->next;
         }
