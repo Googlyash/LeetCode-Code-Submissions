@@ -3,19 +3,7 @@
 class Solution {
 private:
     void solve(int idx, int sum, vector<int>&v, vector<vector<int>>&ans, vector<int>&cand){
-        if(idx==0){
-            int curr=sum;
-            if(sum%cand[0]==0){
-                while(sum){
-                    v.push_back(cand[0]);
-                    sum-=cand[0];
-                }
-                ans.push_back(v);
-                for(int i=0;i<curr/cand[0]; i++){
-                    v.pop_back();
-                }
-                return ;
-            }
+        if(idx<0){
             if(sum==0){
                 ans.push_back(v);
             }
