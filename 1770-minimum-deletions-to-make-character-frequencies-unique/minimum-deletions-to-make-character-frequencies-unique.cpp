@@ -5,29 +5,22 @@ public:
     int minDeletions(string s) {
         int n=s.size(), ans=0;
         map<char, int>mp;
-        map<int, int> mp1;
-        sort(s.begin(), s.end());
         for(int i=0;i<n;i++){
             mp[s[i]]++;
         }
+
+        unordered_set<int>usedFreq;
         for(auto it:mp){
-            mp1[it.second]++;
-            cout<<it.second<<" ";
-        }
-        cout<<endl;
-        for(auto it:mp){
-            int k=it.second;
-            while(mp1[k]>1 && k!=0){
-                mp1[k]--;
-                k-=1;
-                mp1[k]++;
-                cout<<it.second<<" "<<k;
+            int freq=it.second;
+            while(freq>0 && usedFreq.find(freq)!= usedFreq.end()){
+                freq--;
                 ans++;
             }
+            usedFreq.insert(freq);
         }
-        cout<<s;
         return ans;
     }
 };
 
-//Self done: 20Min
+//Easlier Self done: 20Min
+//Comments: Better Code
