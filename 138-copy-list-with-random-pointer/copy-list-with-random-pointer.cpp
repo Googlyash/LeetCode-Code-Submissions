@@ -21,43 +21,35 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        if(!head){
-            return head;
+        if (!head) return nullptr;
+        Node* curr = head;
+        while (curr) {
+            Node* new_node = new Node(curr->val);
+            new_node->next = curr->next;
+            curr->next = new_node;
+            curr = new_node->next;
         }
-        Node*original=head;
-        Node*copy=NULL;
-        Node*ans=NULL;
-
-        while(original){
-            Node*temp= new Node(original->val);
-            temp->next=original->next;
-            original->next=temp;
-            original=temp->next;
-        }
-        original=head;
-        while(original){
-            if(original->random!=NULL){
-                original->next->random=original->random->next;
+        curr = head;
+        while (curr) {
+            if (curr->random) {
+                curr->next->random = curr->random->next;
             }
-            original=original->next->next;
+            curr = curr->next->next;
         }
-        original=head;
-        ans=original->next;
-        copy=ans;
-        while(original){
-            copy=original->next;
-            original->next=copy->next;
-            original=original->next;
-            if(original){
-                copy->next=original->next;
-            }
-            else {
-                copy->next=NULL;
-            }
+        Node* old_head = head;
+        Node* new_head = head->next;
+        Node* curr_old = old_head;
+        Node* curr_new = new_head;
+        while (curr_old) {
+            curr_old->next = curr_old->next->next;
+            curr_new->next = curr_new->next ? curr_new->next->next : nullptr;
+            curr_old = curr_old->next;
+            curr_new = curr_new->next;
         }
-        return ans;
+        return new_head;
     }
 };
+
 
 //Earlier self solved at 05:58 pm in 20:21 minutes, O(n)
 //Comments : O(1)
