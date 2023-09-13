@@ -5,12 +5,16 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(), nums.end());
-        int n=nums.size();
-        set<vector<int>>st;
+        int n=nums.size();        
+        vector<vector<int>>ans;
+        int cur=INT_MIN;
         for(int i=0;i<n-2; i++){
-            int cur=nums[i];
+            if(nums[i]==cur)continue;
+            cur=nums[i];
             int j=i+1, k=n-1;
             while(j<k){
+                int aj=nums[j];
+                int ak=nums[k];
                 if(cur+ nums[j]+ nums[k]>0){
                     k--;
                 }
@@ -18,13 +22,13 @@ public:
                     j++;
                 }
                 else {
-                    st.insert({cur, nums[j], nums[k]});
+                    ans.push_back({cur, nums[j], nums[k]});
                     // break;
-                    j++, k--;
+                    while(j<k && nums[j]==aj)j++;
+                    while(j<k && nums[k]==ak)k--;
                 }
             }
         }
-        vector<vector<int>>ans(st.begin(), st.end());
         return ans;
     }
 };
