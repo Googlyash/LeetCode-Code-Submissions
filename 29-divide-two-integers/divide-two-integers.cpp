@@ -19,8 +19,9 @@ public:
         unsigned int ans=0;
         while(dvd>= dvs){
             short temp=0;
-            while(dvd> (dvs<<(++temp)));
-            temp--;
+            while(dvd> (dvs<<(temp+1))){
+                temp++;
+            }
             ans+=(1<<temp);
             dvd-= (dvs<<temp);
         }
