@@ -14,16 +14,15 @@ public:
             return INT_MIN;
         }
 
-        unsigned int a= abs(dividend);
-        unsigned int b= abs(divisor);
+        unsigned int dvd= abs(dividend);
+        unsigned int dvs= abs(divisor);
         unsigned int ans=0;
-        while(a>= b){
-            short q=0;
-            while(a> (b<<(q+1))){
-                q++;
-            }
-            ans+=(1<<q);
-            a-= (b<<q);
+        while(dvd>= dvs){
+            short temp=0;
+            while(dvd> (dvs<<(++temp)));
+            temp--;
+            ans+=(1<<temp);
+            dvd-= (dvs<<temp);
         }
 
 
