@@ -6,31 +6,31 @@ class Solution {
 public:
     vector<string> findItinerary(vector<vector<string>>& tickets) {
         int n=tickets.size();
-        unordered_map<string, multiset<string>>adj;
-        stack<string>st;
+        unordered_map<string, vector<string>>adj;
 
         for(int i=0;i<n;i++){
-            adj[tickets[i][0]].insert(tickets[i][1]);
+            adj[tickets[i][0]].push_back(tickets[i][1]);
         }
+        for(auto& [_, dest]: adj){
+            sort(dest.rbegin(), dest.rend());
+        }
+        stack<string>st;
         st.push("JFK");
 
         vector<string>ans;
         while(!st.empty()){
             string src=st.top();
 
-            if(adj[src].size()==0){
+            if(adj.find(src)!=adj.end() && !adj[src].empty()){
+                st.push(adj[src].back());
+                adj[src].pop_back();
+            }
+            else {
                 ans.push_back(src);
                 st.pop();
             }
-            else {
-                auto dest= (adj[src].begin());
-                st.push(*dest);
-                adj[src].erase(dest);
-
-            }
         }
         reverse(ans.begin(), ans.end());
-        return ans;
         return ans;
     }
 };
