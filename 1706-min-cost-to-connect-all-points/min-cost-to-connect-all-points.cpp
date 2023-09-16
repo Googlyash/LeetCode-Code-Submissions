@@ -1,26 +1,40 @@
 //POTD Sep'15, 2023 
 //Sep'15, 2023 06:26 pm
-//Comments: Prism's Algo
+//Prim's Algo: MST
 class Solution {
 public:
     int minCostConnectPoints(vector<vector<int>>& points) {
         int ans=0, n=points.size(), connected=0, i=0;
 
-        vector<int>mn(n, 1e7);
-        while(++connected<n){
-            mn[i]=INT_MAX;
-            int mnj=i;
-            for(int j=0; j<n; j++){
-                if(mn[j]!=INT_MAX){
-                    mn[j]= min(mn[j], abs(points[i][0]-points[j][0])+ abs(points[i][1]-points[j][1]));
-                    mnj= mn[j]< mn[mnj]? j: mnj;
+        vector<pair<int, int> >adj[n];
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                int dist= abs(points[i][0]-points[j][0])+abs(points[j][1]- points[i][1]);
+                adj[i].push_back({j, dist});
+                adj[j].push_back({i, dist});
+            }
+        }
+        priority_queue<pair<int, int>, vector<pair<int,int>>, greater<pair<int, int>>>pq;
+        pq.push({0, 0});
+        vector<int>vis(n ,0);
+        while(!pq.empty()){
+            int node=pq.top().second;
+            int wt=pq.top().first;
+            pq.pop();
+
+            if(vis[node])continue;
+            vis[node]=1;
+            ans+=wt;
+            for(auto it:adj[node]){
+                int adjNode=it.first;
+                int adjW= it.second;
+                if(!vis[adjNode]){
+                    pq.push({adjW, adjNode});
                 }
             }
-            ans+=mn[mnj];
-            i=mnj;
         }
         return ans;
     }
 };
 
-//Comments: 50 Min
+//Self+ Comments: 30 min
