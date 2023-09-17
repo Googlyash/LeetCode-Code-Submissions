@@ -25,36 +25,25 @@ public:
 
 class Solution {
 private:
-    Node* solve(Node* node, map<int, int>&vis, map<Node*, Node*>&mp){
+    Node* solve(Node* node, unordered_map<Node*, Node*>&mp){
         if(node==NULL){
             return NULL;
         }
-        if(vis[node->val]){
-            return mp[node];
-        }
-        vis[node->val]=1;
-
-        Node* copy=new Node();
-        copy->val= node->val;
-        mp[node]=copy;
+        if(mp.find(node)!=mp.end())return mp[node];
+        mp[node]=new Node(node->val, {});
         vector<Node*>copyn;
         for(auto it:node->neighbors){
-            Node* adj= solve(it, vis, mp);
-            copyn.push_back(adj);
+            mp[node]->neighbors.push_back(solve(it, mp));
         }
-        copy->neighbors=copyn;
-        return copy;
+        return mp[node];
     }
 public:
     Node* cloneGraph(Node* node) {
-        if(node==NULL){
-            return node;
-        }
-        map<int, int>vis;
-        map<Node*, Node*>mp;
-        return solve(node, vis, mp);
+        unordered_map<Node*, Node*>mp;
+        return solve(node, mp);
     }
 };
 
 
-//Self: 18 Min
+//Earlier Self: 18 Min
+//More optitmized
