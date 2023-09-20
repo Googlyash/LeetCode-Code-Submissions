@@ -1,24 +1,24 @@
-//Sep'20, 2023 04:53 pm
+//Sep'20, 2023 05:25 pm
 
 class Solution {
 private:
     int timer=1;
 private:
-    void dfs(int idx, int parent, vector<int>&vis, vector<int>&tn, vector<int>&low, vector<int>adj[], vector<vector<int>>&bridges){
-        vis[idx]=1;
-        tn[idx]=low[idx]=timer++;
+    void dfs(int node, int parent, vector<int>&vis, int tn[], int low[], vector<int>adj[], vector<vector<int>>&bridges){
+        vis[node]=1;
+        tn[node]=low[node]=timer++;
 
-        for(auto it:adj[idx]){
+        for(auto it:adj[node]){
             if(it==parent)continue;
             if(!vis[it]){
-                dfs(it, idx, vis, tn, low, adj, bridges);
-                low[idx]=min(low[idx], low[it]);
-                if(low[it]> tn[idx]){
-                    bridges.push_back({it, idx});
+                dfs(it, node, vis, tn, low, adj, bridges);
+                low[node]=min(low[node], low[it]);
+                if(low[it]> tn[node]){
+                    bridges.push_back({node, it});
                 }
             }
-            else{
-                low[idx]=min(low[idx], low[it]);
+            else {
+                low[node]=min(low[it], low[node]);
             }
         }
     }
@@ -29,11 +29,10 @@ public:
             adj[it[0]].push_back(it[1]);
             adj[it[1]].push_back(it[0]);
         }
-        vector<vector<int>> bridges;
-        vector<int>tn(n, 0);
-        vector<int>low(n+1, 0);
+
         vector<int>vis(n, 0);
-        vector<int>ans;
+        int tn[n], low[n];
+        vector<vector<int>>bridges;
         dfs(0, -1, vis, tn, low, adj, bridges);
         return bridges;
     }
