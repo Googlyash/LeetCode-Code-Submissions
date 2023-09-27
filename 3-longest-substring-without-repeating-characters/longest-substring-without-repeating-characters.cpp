@@ -1,21 +1,21 @@
-//Striver SDE Sheet: Day 4
-//Aug'14, 2023 10:10 pm
+//Sliding Window
+//Sep'27, 2023 04:16 pm
 
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        unordered_map<char,int>mp;
-        int n=s.size(), cnt=0, i, rev=0;
-        for(i=0;i<n;i++)
-        {
-           if(mp[s[i]]>rev){
-               rev=mp[s[i]];
-           }
-           mp[s[i]]=i+1;
-           cnt=max(cnt, i-rev+1);
+        int n=s.size();
+        int i=0, j=0, ans=0;
+        unordered_map<char, int>mp;
+        while(j<n){
+            mp[s[j]]++;
+            while(mp[s[j]]>1){
+                mp[s[i]]--;
+                i++;
+            }
+            ans=max(ans, j-i+1);
+            j++;
         }
-        return cnt;
+        return ans;
     }
 };
-
-//Partial
