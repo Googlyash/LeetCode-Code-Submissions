@@ -31,7 +31,6 @@ private:
         }
         if(mp.find(node)!=mp.end())return mp[node];
         mp[node]=new Node(node->val, {});
-        vector<Node*>copyn;
         for(auto it:node->neighbors){
             mp[node]->neighbors.push_back(solve(it, mp));
         }
