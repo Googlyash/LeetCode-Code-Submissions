@@ -8,7 +8,7 @@ public:
         int i=0, cnt=0, j=-1, pro=1;
         while(++j<n){
             pro*=nums[j];
-            while(i<=j && pro>=k){
+            while(i<j && pro>=k){
                 pro/=nums[i++];
             }
             if(pro<k){
@@ -19,4 +19,4 @@ public:
     }
 };
 
-// 3 min
+//Self: 3 min
