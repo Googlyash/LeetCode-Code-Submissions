@@ -26,28 +26,29 @@ private:
     }
 public:
     int numDecodings(string s) {
-        long long ans=1;
         int n=s.size();
-        vector<int>dp(n, -1);
+        vector<int>dp(n+1, 0);
         if(s[0]=='0'){
             return 0;
         }
-        return solve(0, s, dp);
-        
-        // dp[0][0]=1;
-        // for(int i=1;i<n;i++){
-        //     if(s[i+1]=='0'){
-        //         dp[i][0]=0;
-        //         dp[i][1]=dp[i-1][0];
-        //     }
-        //     else {
-        //         dp[i][0]=dp[i-1][0];
-        //         if(s[i]<='1' || (s[i-1]=='2' && s[i]<'7')){
-        //             dp[i][1]=dp[i-1][0]+1;
-        //         }
-        //     }
+        dp[n]=1;
+        for(int i=n-1; i>=0; i--){
+            long long ans= dp[i+1];
+            if(i<n-1 ){
+                if(s[i]=='1' || (s[i]=='2' && s[i+1]<'7')){
+                    ans+=dp[i+2];
+                    if(s[i+1]=='0' || (i<n-2 &&s[i+2]=='0'))ans=dp[i+2];
+                }
+                else if(s[i+1]=='0'){
+                    return 0;
+                }
+            }
+            dp[i]=ans;
+        }
+        // for(int i=0;i<n;i++){
+        //     cout<<"i= "<<dp[i]<<endl;
         // }
-        // return dp[n-1][0]+dp[n-1][1];
+        return dp[0];
     }
 };
 
