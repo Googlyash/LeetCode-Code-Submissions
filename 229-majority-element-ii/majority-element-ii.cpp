@@ -5,16 +5,35 @@ class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
         vector<int> ans;
-        int mx=1, n=nums.size();
-        sort(nums.begin(), nums.end());
-        for(int i=1;i<n;i++){
-            if(nums[i]!=nums[i-1]){
-                if(mx>n/3)ans.push_back(nums[i-1]);
-                mx=0;
+        int mx=0, n=nums.size(), y(-1), z(-1), mxy(0),mxz(0);
+        for(auto val:nums){
+            if(val==y){
+                mxy++;
             }
-            mx++;
+            else if(z==val){
+                mxz++;
+            }
+            else if(!mxy){
+                y=val;
+                mxy=1;
+            }
+            else if(!mxz){
+                z=val, mxz=1;
+            }
+            else {
+                mxy--,mxz--;
+            }
         }
-        if(mx>n/3)ans.push_back(nums[n-1]);
+        int cy=0,cz=0;
+        for(auto val:nums){
+            if(val==y)cy++;
+            else if(val==z)cz++;
+        }
+        if(cy>n/3)ans.push_back(y);
+        if(cz>n/3)ans.push_back(z);
         return ans;
     }
 };
+
+//Self Solved earlier, noon-optimal
+//Commnts:Optimal
