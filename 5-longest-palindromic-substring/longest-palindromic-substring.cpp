@@ -1,27 +1,36 @@
-//Aug'22, 2023 10:54 pm
-//Comments
+//POTD Oct'27. 2023
+//Oct'27, 2023 05:44 pm
 
 class Solution {
-private: 
-    string ans="";
-    void expand(string&s, int l, int r){
-        while(l>=0 && r<s.size()){
-            if(s[l]!= s[r]){
-                break;
-            }
-            l--,r++;
+int size=1, idx=0;
+void check(string&s, int l, int r){
+    int n=s.size();
+    int cur=0;
+    if(l==r)cur--;
+    while(l>=0 && r<n){
+        if(s[l--]!=s[r++]){
+            break;
         }
-        if(ans.size()<r-l){
-            ans=s.substr(l+1, r-l-1);
-        }
+        cur+=2;
     }
+    size=max(size, cur);
+}
 public:
     string longestPalindrome(string s) {
         int n=s.size();
+
+        string s1;
         for(int i=0;i<n;i++){
-           expand(s, i, i);
-           expand(s,i,i+1);
+            int cur=size;
+            check(s, i, i);
+            if(size>cur)idx=i;
+            cur=size;
+            if(i<n-1)check(s, i, i+1);
+            if(size>cur)idx=i;
         }
-        return ans;
+        s1=s.substr(idx-(size-1)/2, size);
+        return s1;
     }
 };
+
+//Self: 11 min
