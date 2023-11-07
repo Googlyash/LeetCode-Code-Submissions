@@ -6,7 +6,6 @@ class Solution {
 public:
     long long maxMatrixSum(vector<vector<int>>& matrix) {
         int n=matrix.size(), m=matrix[0].size(), z=1e6, o=0;
-        vector<vector<ll>>v(n, vector<ll>(m, 0));
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 z=min(abs(matrix[i][j]), z);
@@ -23,3 +22,5 @@ public:
         return cur;
     }
 };
+
+//18 min
