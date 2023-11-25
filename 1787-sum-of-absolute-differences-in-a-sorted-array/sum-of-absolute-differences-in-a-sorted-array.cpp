@@ -1,18 +1,18 @@
 //POTD Nov'25, 2023
-//Nov'25, 2023 09: pm
+//Nov'25, 2023 09:52 am
 
 class Solution {
 public:
     vector<int> getSumAbsoluteDifferences(vector<int>& nums) {
         int n=nums.size(), sum=0;
-        vector<int>ans, pre(n+1, 0);
+        vector<int>ans;
         for(int i=0;i<n;i++){
-            pre[i+1]=pre[i]+nums[i];
+            sum+= (nums[i]-nums[0]);
         }
-        sum= pre[n];
-        for(int i=0;i<n;i++){
-            int it= i*nums[i]-2*pre[i]+ sum- (n-i)*nums[i];
-            ans.push_back(it);
+        ans.push_back(sum);
+        for(int i=1;i<n;i++){
+            sum+= i*(nums[i]-nums[i-1])- (n-i)*(nums[i]-nums[i-1]);
+            ans.push_back(sum);
         }
         return ans;
     }
