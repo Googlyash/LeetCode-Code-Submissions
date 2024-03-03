@@ -1,6 +1,5 @@
-//Striver SDE Sheet: Day 5
-//Aug'15,2023 12:12 am
-
+//POTD Mar'3, 2024
+//Mar'3,2024 11:12 pm
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -14,17 +13,20 @@
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode *fast = head, *slow = head;
-        for (int i = 0; i < n; i++) fast = fast->next;
-        if (!fast) return head->next;
-        while (fast->next){
-            fast = fast->next;
-            slow = slow->next;
+        ListNode* cur=head, *pre=head;
+        while(n--){
+            cur= cur->next;
         }
-        slow->next = slow->next->next;
+        if(!cur){
+            return pre->next;
+        }
+        while(cur->next){
+            cur=cur->next;
+            pre=pre->next;
+        }
+        pre->next= pre->next->next;
         return head;
     }
 };
 
-//Earlier self-solved
-//Comments
+//4 min
