@@ -1,6 +1,5 @@
-//Striver SDE Sheet: Day 5
-//Aug'14, 2023 10:30 pm
-//Iterative
+//POTD Mar'24, 2024
+//Mar'24, 2024 11:46 pm
 
 /**
  * Definition for singly-linked list.
@@ -15,15 +14,18 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode*next, *prev=NULL;
-        while(head){
-            next=head->next;
-            head->next=prev;
-            prev=head;
-            head=next;
+        if(!head){
+            return head;
         }
-        return prev;
+        ListNode* node=head, *pre=NULL, *suc=head->next;
+        while(node){
+            node->next=pre;
+            pre=node;
+            node=suc;
+            if(suc)suc=suc->next;
+        }
+        return pre;
     }
 };
 
-//Comments
+//7 min
