@@ -1,7 +1,5 @@
-//Striver SDE Sheet: Day 6
-//Aug'16, 2023 06:49 pm
-//Good Algo (using Rabbit-Hare Algo)
-
+//POTD Mar'21, 2024
+//Mar'21, 2024 11:11 pm
 
 /**
  * Definition for singly-linked list.
@@ -16,30 +14,18 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        if(!head)return false;
-        ListNode*slow=head, *fast=head;
-        while(fast && fast->next){
-            slow=slow->next;
-            fast=fast->next->next;
+        ListNode* cur=head, *pre= NULL;
+        string s, s1;
+
+        while(cur){
+            s+= cur->val;
+            cur= cur->next;
         }
-        ListNode*prev=slow;
-        slow=slow->next;
-        prev->next=NULL;
-        while(slow){
-            ListNode*cur=slow->next;
-            slow->next=prev;
-            prev=slow;
-            slow=cur;
-        }
-        fast=head;
-        slow=prev;
-        while(slow){
-            if(fast->val!= slow->val){
-                return false;
-            }
-            fast=fast->next;
-            slow=slow->next;
-        }
-        return true;
+
+        s1=s;
+        reverse(s.begin(), s.end());
+        return s1==s;
     }
 };
+
+//10 min
