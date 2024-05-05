@@ -1,5 +1,6 @@
-//Striver SDE Sheet: Day 5
-//Aug'14, 2023 11:51 pm
+//POTD May'5, 2024
+//May'6, 2024 12:04 am
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -12,6 +13,8 @@ class Solution {
 public:
     void deleteNode(ListNode* node) {
         node->val=node->next->val;
-        node->next=node->next->next;
+        node->next= node->next->next;
     }
 };
+
+//2 min
