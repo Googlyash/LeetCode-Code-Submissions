@@ -1,50 +1,17 @@
-// Jan'16, 2025 03:58 pm
+// Jan'16, 2025 04:14 pm
 
 class Solution {
 public:
     int maxProfit(vector<int>& prices, int fee) {
-        int n= prices.size();
+        int n= prices.size(), buy= INT_MIN, sell=0;
 
-        // return solve(prices, 0, 0, fee);
+        for(int i=0;i<n;i++){
+            buy= max(buy, sell - prices[i]);
 
-        vector<vector<int>>dp(n+1, vector<int>(2, 0));
-
-        for(int i=n-1; i>=0; i--){
-            for(int buy=1; buy>=0; buy--){
-                int noaction= dp[i+1][buy];
-                int action= 0;
-                if(buy){
-                    action= -fee + prices[i] + dp[i+1][!buy];
-                }
-                else {
-                    action= -prices[i] + dp[i+1][!buy];
-                }
-
-                dp[i][buy]= max(action, noaction);
-            }
+            sell= max(sell, buy+ prices[i]-fee);
         }
-
-        return dp[0][0];
+        return sell;
     }
 };
 
-// 10 min
-
-// Recursion
-    // int solve(vector<int>&prices, int i, int buy, int fee){
-    //     int n= prices.size();
-    //     if(i==n){
-    //         return 0;
-    //     }
-
-    //     int noaction= solve(prices, i+1, buy, fee);
-    //     int action= 0;
-    //     if(buy){
-    //         action= -fee + prices[i] + solve(prices, i+1, !buy, fee);
-    //     }
-    //     else {
-    //         action= -prices[i] + solve(prices, i+1, !buy, fee);
-    //     }
-
-    //     return max(action, noaction);
-    // }
+// 12 min
