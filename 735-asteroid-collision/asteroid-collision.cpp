@@ -1,35 +1,56 @@
-//POTD July'20,2023
-//Comments
+// Jan'16, 2025 07:41 pm
 
 class Solution {
 public:
-    vector<int> asteroidCollision(vector<int>& ast) {
-        int n = ast.size();
-        stack<int> s;
-        for(int i = 0; i < n; i++) {
-            if(ast[i] > 0 || s.empty()) {
-                s.push(ast[i]);
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        int n=  asteroids.size();
+
+        stack<pair<int,int>>st1, st2;
+        for(int i=0;i<n;i++){
+            int cur= asteroids[i];
+            if(cur>0){
+                st1.push({cur, i});
             }
             else {
-                while(!s.empty() and s.top() > 0 and s.top() < abs(ast[i])) {
-                    s.pop();
+                while(!st1.empty() && st1.top().first<abs(cur)){
+                    st1.pop();
                 }
-                if(!s.empty() and s.top() == abs(ast[i])) {
-                    s.pop();
+                if(!st1.empty()){
+                    if(st1.top().first== abs(cur)){
+                        st1.pop();
+                    }
                 }
                 else {
-                    if(s.empty() || s.top() < 0) {
-                        s.push(ast[i]);
-                    }
+                    st2.push({cur, i});
                 }
             }
         }
-        
-        vector<int> res(s.size());
-        for(int i = (int)s.size() - 1; i >= 0; i--) {
-            res[i] = s.top();
-            s.pop();
+        vector<int>ans;
+        while(!st1.empty() && !st2.empty()){
+            int i= st1.top().second;
+            int j= st2.top().second;
+            if(i>j){
+                ans.push_back(st1.top().first);
+                st1.pop();
+            }
+            else {
+                ans.push_back(st2.top().first);
+                st2.pop();
+            }
         }
-        return res;
+        while(!st1.empty()){
+            ans.push_back(st1.top().first);
+            st1.pop();
+        }
+        while(!st2.empty()){
+            ans.push_back(st2.top().first);
+            st2.pop();
+        }
+
+        reverse(ans.begin(), ans.end());
+
+        return ans;
     }
 };
+
+// 10 min
