@@ -6,7 +6,7 @@ public:
     int maxDifference(string s) {
         int n= s.size();
 
-        map<char, int>mp;
+        unordered_map<char, int>mp;
         for(auto c:s){
             mp[c]++;
         }
