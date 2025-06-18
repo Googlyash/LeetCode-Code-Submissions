@@ -1,28 +1,22 @@
-//POTD Feb'1, 2023
-//Feb'2,2023 05:02 am
+// POTD Jun'18, 2025
+// Jun'18, 2025 07:14 pm
 
 class Solution {
 public:
     vector<vector<int>> divideArray(vector<int>& nums, int k) {
-        int size = nums.size();
-        
-
+        int n= nums.size();
         sort(nums.begin(), nums.end());
 
-        vector<vector<int>> result(size / 3, vector<int>(3));
-        int groupIndex = 0;
-        for (int i = 0; i < size; i += 3) {
-            if (i + 2 < size && nums[i + 2] - nums[i] <= k) {
-                result[groupIndex] = { nums[i], nums[i + 1], nums[i + 2] };
-                groupIndex++;
+        vector<vector<int>>ans;
+        for(int i=0;i<n;i+=3){
+            if(nums[i+2] - nums[i] > k ){
+                return {};
             }
-            else {
-                return vector<vector<int>>();
-            }
+            ans.push_back({nums[i], nums[i+1], nums[i+2]});
         }
-        return result;
+
+        return ans;
     }
-}; 
+};
 
-
-//Comments
+// 5 min
