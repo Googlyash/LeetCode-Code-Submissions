@@ -1,35 +1,54 @@
-//POTD Dec'17, 2023
-//Dec'18, 2023 04:
+// POTD Sep'17, 2025
+// Sep'17, 2025 07:37 pm
 
 class FoodRatings {
+    struct ComparePairs{
+        bool operator()(const pair<int, string>&a, const pair<int, string>&b){
+            if(a.first != b.first){
+                return a.first < b.first;
+            }
+            return a.second > b.second;
+        }
+    };
+    map<string, priority_queue<pair<int, string>, vector<pair<int, string>>, ComparePairs>>cuisineSorted;
+    map<string, int> foodRating;
+    map<string, vector<string>>foodsCuisine;
+
 public:
-    unordered_map<string, set<pair<int, string>>> cuisine_ratings;
-    unordered_map<string, string> food_cuisine;
-    unordered_map<string, int> food_rating;
     FoodRatings(vector<string>& foods, vector<string>& cuisines, vector<int>& ratings) {
-        for (int i = 0; i < foods.size(); ++i) {
-            cuisine_ratings[cuisines[i]].insert({ -ratings[i], foods[i] });
-            food_cuisine[foods[i]] = cuisines[i];
-            food_rating[foods[i]] = ratings[i];
+        int n= foods.size();
+        for(int i=0;i<n;i++){
+            cuisineSorted[cuisines[i]].push({ratings[i], foods[i]});
+            foodRating[foods[i]]= ratings[i];
+            foodsCuisine[foods[i]].push_back(cuisines[i]);
         }
     }
+    
     void changeRating(string food, int newRating) {
-        auto &cuisine = food_cuisine.find(food)->second;
-        cuisine_ratings[cuisine].erase({ -food_rating[food], food });
-        cuisine_ratings[cuisine].insert({ -newRating, food });
-        food_rating[food] = newRating;
+        foodRating[food]= newRating;
+        for(auto it:foodsCuisine[food]){
+            cuisineSorted[it].push({newRating, food});
+        }
     }
+    
     string highestRated(string cuisine) {
-        return begin(cuisine_ratings[cuisine])->second;
+        if(cuisineSorted.find(cuisine)== cuisineSorted.end() || cuisineSorted[cuisine].size()==0){
+            return "null";
+        }
+
+        while(cuisineSorted[cuisine].size()!=0 && cuisineSorted[cuisine].top().first!= foodRating[cuisineSorted[cuisine].top().second]){
+            string food= cuisineSorted[cuisine].top().second;
+            cuisineSorted[cuisine].pop();
+            cuisineSorted[cuisine].push({foodRating[food], food});
+        }
+        return cuisineSorted[cuisine].top().second;
     }
 };
 
+// 40 min
 /**
  * Your FoodRatings object will be instantiated and called as such:
  * FoodRatings* obj = new FoodRatings(foods, cuisines, ratings);
  * obj->changeRating(food,newRating);
  * string param_2 = obj->highestRated(cuisine);
  */
-
- //Comments
- //20mins
