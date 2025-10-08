@@ -1,32 +1,26 @@
-// Jan'16, 2025 06:43 pm
+// POTD Oct'8, 2025
+// Oct'9, 2025 01:02 am
 
 class Solution {
 public:
     vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
-        int n= spells.size(), m= potions.size();
-
-        sort(potions.begin(), potions.end());
-        vector<int>ans(n, 0);
-        for(int i=0;i<n;i++){
-            long long cur= spells[i];
-
-            int l=0, r=m-1;
-            while(l<=r){
-                long long mid= l+ (r-l)/2;
-                long long potion= potions[mid]*cur;
-
-                if(potion<success){
-                    l= mid+1;
-                }
-                else {
-                    r=mid-1;
-                }
-            }
-            ans[i]= m-l;
+        int n= spells.size(), m=potions.size();
+        vector<pair<int, int>> v;
+        for(int i=0;i<n; i++){
+            v.push_back({spells[i], i});
         }
-
+        sort(v.begin(), v.end());
+        sort(potions.begin(), potions.end());
+        vector<int>temp(n, n-1), ans(n, 0);
+        int l=0, r=m-1;
+        for(int i=0;i<n;i++){
+            while(r>=0 && (v[i].first)*1LL*(potions[r]) >= success){
+                r--;
+            }
+            ans[v[i].second]= m-1-r; 
+        }
         return ans;
     }
 };
 
-// 9 min
+// 11 min
