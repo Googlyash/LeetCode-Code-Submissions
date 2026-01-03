@@ -1,11 +1,11 @@
-//POTD Aug'28, 2023
-//Aug'28, 2023 05:59 pm
+// Stack Queue practice
+// Jan'4, 2025 12:40 am
 
 class MyStack {
+    queue<int>q1, q2;
 public:
-    queue<int>q1,q2;
     MyStack() {
-         
+        
     }
     
     void push(int x) {
@@ -16,41 +16,39 @@ public:
         if(q1.empty()){
             return -1;
         }
-        int ans=q1.front();
-        while(!q2.empty()){
-            q2.pop();
-        }
+        int first= -1;
         while(!q1.empty()){
-            int t=q1.front();
+            first= q1.front();
             q1.pop();
             if(q1.empty()){
-                ans=t;
                 break;
             }
-            q2.push(t);
+            q2.push(first);
         }
-        q1=q2;
-        return ans;
+        while(!q2.empty()){
+            int first= q2.front();
+            q2.pop();
+            q1.push(first);
+        }
+        return first;
     }
     
     int top() {
         if(q1.empty()){
             return -1;
         }
-        int ans=q1.front();
-        while(!q2.empty()){
-            q2.pop();
-        }
+        int first= -1;
         while(!q1.empty()){
-            int t=q1.front();
+            first= q1.front();
             q1.pop();
-            if(q1.empty()){
-                ans=t;
-            }
-            q2.push(t);
+            q2.push(first);
         }
-        q1=q2;
-        return ans;
+        while(!q2.empty()){
+            int first= q2.front();
+            q2.pop();
+            q1.push(first);
+        }
+        return first;
     }
     
     bool empty() {
@@ -58,6 +56,8 @@ public:
     }
 };
 
+// Switch 2 preps
+// 11 min
 /**
  * Your MyStack object will be instantiated and called as such:
  * MyStack* obj = new MyStack();
