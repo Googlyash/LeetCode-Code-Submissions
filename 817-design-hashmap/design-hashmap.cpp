@@ -1,28 +1,61 @@
-// System Design Practice
-// Feb'21, 2026 10:46 pm
-
 class MyHashMap {
-    int n= 1e6+1;
-    vector<int>mp;
+    struct mp{
+        int data;
+        int val;
+        mp* next;
+        mp(int k=-1, int v=-1, mp* n= nullptr): data(k), val(v), next(n) {}
+
+    };
 public:
+    vector<mp*> hashmap;
     MyHashMap() {
-        mp.resize(n, -1);
+        hashmap.resize(1000, new mp());
+
     }
     
     void put(int key, int value) {
-        mp[key]= value;
+        int ind= key%1000;
+        
+        mp* temp= hashmap[ind];
+        while(temp->next != nullptr){
+            if(temp->next->data == key){
+                temp->next->val= value;
+                return;
+            }
+            temp =temp ->next;
+        }
+
+        temp->next= new mp(key, value);
     }
     
     int get(int key) {
-        return mp[key];
+        int ind= key%1000;
+        
+        mp* temp= hashmap[ind];
+        while(temp!= NULL && temp->data != key){
+            temp = temp->next;
+        }
+
+        return temp == nullptr ? -1 : temp->val;
     }
     
     void remove(int key) {
-        mp[key]= -1;
+        int ind= key%1000;
+        
+        mp* temp= hashmap[ind];
+        while(temp!= NULL && temp->next!=NULL && temp->next->data != key){
+            temp = temp->next;
+        }
+
+        if(temp == NULL || temp->next==NULL){
+            return;
+        }
+
+        mp* cur= temp->next;
+        temp->next= temp->next->next;
+        delete cur;
     }
 };
-
-// 5 min
 
 /**
  * Your MyHashMap object will be instantiated and called as such:
@@ -31,4 +64,3 @@ public:
  * int param_2 = obj->get(key);
  * obj->remove(key);
  */
-
