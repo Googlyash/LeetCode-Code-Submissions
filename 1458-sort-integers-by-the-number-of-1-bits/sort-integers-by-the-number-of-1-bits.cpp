@@ -1,27 +1,17 @@
-//POTD Oct'30, 2023
-//Oct'31, 2023 12:37 pm
+// POTD Feb'25, 2026
+// Feb'25, 2026 09:33 pm
 
 class Solution {
 public:
-    static bool compare(int a, int b) {
-        // Calculate the number of set bits (1s) in the binary representation of a and b
-        int bitCountA = __builtin_popcount(a);
-        int bitCountB = __builtin_popcount(b);
-
-        // If the number of set bits is the same for a and b, compare them numerically
-        if (bitCountA == bitCountB) {
-            return a < b;
-        }
-        
-        // Sort by the number of set bits in ascending order
-        return bitCountA < bitCountB;
-    }
-    
     vector<int> sortByBits(vector<int>& arr) {
-        // Use the compare function to sort the vector
-        sort(arr.begin(), arr.end(), compare);
-        
-        // Return the sorted vector
+        int n= arr.size();
+
+        sort(arr.begin(), arr.end(), [](int a, int b){
+            return ((__builtin_popcount(a) != __builtin_popcount(b)) ? (__builtin_popcount(a) < __builtin_popcount(b)) : a <b);
+        });
+
         return arr;
     }
 };
+
+// 5 min
