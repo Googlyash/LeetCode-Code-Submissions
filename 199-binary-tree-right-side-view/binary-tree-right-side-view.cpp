@@ -1,4 +1,4 @@
-// Jan'24, 2025 10:20 am
+// Mar'13, 2026 12:05 pm
 
 /**
  * Definition for a binary tree node.
@@ -12,23 +12,27 @@
  * };
  */
 class Solution {
-    void dfs(TreeNode* root, vector<int>&ans, int n){
+private:
+    void solve(TreeNode* root, int cur, map<int, int>&mp){
         if(!root){
-            return ;
+            return;
         }
-
-        if(ans.size()==n){
-            ans.push_back(root->val);
-        }
-        dfs(root->right, ans, n+1);
-        dfs(root->left, ans, n+1);
+        
+        mp[cur]= root->val;
+        solve(root->left, cur+1, mp);
+        solve(root->right, cur+1, mp);
     }
 public:
     vector<int> rightSideView(TreeNode* root) {
         vector<int>ans;
-        dfs(root, ans, 0);
+        map<int, int>mp;
+        solve(root, 0, mp);
+        for(auto it:mp){
+            ans.push_back(it.second);
+        }
         return ans;
     }
 };
 
-// 6 min
+// Tree Practice
+// 4 min
