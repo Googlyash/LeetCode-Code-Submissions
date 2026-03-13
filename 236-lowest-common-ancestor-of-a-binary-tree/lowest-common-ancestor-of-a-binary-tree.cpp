@@ -1,4 +1,5 @@
-// Jan'24, 2025 09:09 am
+// Mar'13, 2026 09:54 am
+// Tree Practice
 
 /**
  * Definition for a binary tree node.
@@ -10,32 +11,28 @@
  * };
  */
 class Solution {
-    TreeNode*ans;
-    int solve(TreeNode* root, TreeNode*p, TreeNode*q){
-        if(!root){
-            return 0;
-        }
-        int cur=0;
-        if(root== p || root==q){
-            cur= 1;
-        }
-
-        int l= solve(root->left, p, q);
-        int r= solve(root->right, p, q);
-        if((l==1 || r==1 || cur==1) && l+r+cur==2){
-            ans= root;
-            cout<<root<<" "<<p<<" "<<q<<endl;
-            cout<<root<<" "<<l<<" "<<r<<" "<<cur<<endl;
-            return 0;
-        }
-
-        return l+r+cur;
-    }
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        solve(root, p, q);
-        return ans;
+        if(!root){
+            return nullptr;
+        }
+
+        if(root== p || root == q){
+            return root;
+        }
+        TreeNode* left= lowestCommonAncestor(root->left, p, q);
+        TreeNode* right= lowestCommonAncestor(root->right, p, q);
+        if(left && right){
+            return root;
+        }
+        if(left){
+            return left;
+        }
+        if(right){
+            return right;
+        }
+        return NULL;
     }
 };
 
-// 19 min
+// 9 min
