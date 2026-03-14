@@ -1,6 +1,5 @@
-//Stiver SDE: Day 23 Graph
-//Sep'17, 2023 02:40 pm
-
+// Mar'14, 2026 05:34 pm
+// Graph practice
 
 /*
 // Definition for a Node.
@@ -24,25 +23,31 @@ public:
 */
 
 class Solution {
-private:
-    Node* solve(Node* node, unordered_map<Node*, Node*>&mp){
-        if(node==NULL){
+    Node* dfs(map<Node*, Node*>&vis, Node*node){
+        if(!node){
             return NULL;
         }
-        if(mp.find(node)!=mp.end())return mp[node];
-        mp[node]=new Node(node->val, {});
-        for(auto it:node->neighbors){
-            mp[node]->neighbors.push_back(solve(it, mp));
+        if(vis.find(node) != vis.end()){
+            return vis[node];
         }
-        return mp[node];
+
+        Node* cur= new Node(node->val);
+        vis[node]= cur;
+
+        for(int i=0;i<node->neighbors.size(); i++){
+            cur->neighbors.push_back(dfs(vis, node->neighbors[i]));
+        }
+        return cur;
     }
 public:
     Node* cloneGraph(Node* node) {
-        unordered_map<Node*, Node*>mp;
-        return solve(node, mp);
+        if(!node){
+            return NULL;
+        }
+        map<Node*, Node*>vis;
+        return dfs(vis, node);
     }
 };
 
-
-//Earlier Self: 18 Min
-//More optitmized
+// Comments
+// 16 min
