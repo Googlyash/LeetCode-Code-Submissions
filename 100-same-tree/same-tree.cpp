@@ -1,5 +1,5 @@
-//POTD Feb'26, 2024
-//Feb'26, 2024 10: am
+// Mar'14, 2026 01:55 pm
+// Tree Practice
 
 /**
  * Definition for a binary tree node.
@@ -13,21 +13,23 @@
  * };
  */
 class Solution {
-public:
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-
-        if((p==NULL && q!=NULL) || (q==NULL && p!=NULL)){
-            return false;
-        }
-        if(p==NULL && q==NULL){
+    bool check(TreeNode*p, TreeNode*q){
+        if(!p && !q){
             return true;
         }
-
-        if(p->val!= q->val){
+        if(!p || !q){
             return false;
         }
-        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+        if(p->val != q->val){
+            return false;
+        }
+
+        return check(p->left, q->left) && check(p->right, q->right);
+    }
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        return check(p, q);
     }
 };
 
-//4 min
+// 2 min
