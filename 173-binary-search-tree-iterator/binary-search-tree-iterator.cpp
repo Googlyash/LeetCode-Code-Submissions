@@ -1,4 +1,4 @@
-// Apr'3, 2026 03:18 pm
+// Apr'3, 2026 03:26 pm
 // LLD Practice
 
 /**
@@ -13,29 +13,29 @@
  * };
  */
 class BSTIterator {
-    vector<int>bst;
-    int ind=0;
+    stack<TreeNode*>bst;
 
-    void traverse(TreeNode* root, vector<int>&bst){
+    void traverse(TreeNode* root, stack<TreeNode*>&bst){
         if(!root){
             return;
         }
+        bst.push(root);
         traverse(root->left, bst);
-        bst.push_back(root->val);
-        traverse(root->right, bst);
     }
 public:
     BSTIterator(TreeNode* root) {
         traverse(root, bst);
-
     }
     
     int next() {
-        return bst[ind++];
+        TreeNode* top= bst.top();
+        bst.pop();
+        traverse(top->right, bst);
+        return top->val;
     }
     
     bool hasNext() {
-        return ind != bst.size();
+        return !bst.empty();
     }
 };
 
@@ -46,4 +46,5 @@ public:
  * bool param_2 = obj->hasNext();
  */
 
-// 5 min
+// 8 min
+// For O(h) memory
