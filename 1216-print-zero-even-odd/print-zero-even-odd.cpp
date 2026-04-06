@@ -4,52 +4,43 @@
 class ZeroEvenOdd {
 private:
     int n;
-    mutex mtx;
-    condition_variable cv;
-    int cnt=0, oddN=1, evenN=2;
+    sem_t sem_z, sem_e, sem_o;
 public:
     ZeroEvenOdd(int n) {
         this->n = n;
-
+        sem_init(&sem_z, 0 ,1);
+        sem_init(&sem_o, 0 ,0);
+        sem_init(&sem_e, 0 ,0);
     }
 
     // printNumber(x) outputs "x", where x is an integer.
     void zero(function<void(int)> printNumber) {
-        while(true){
-            unique_lock<mutex> lock(mtx);
-            cv.wait(lock, [this]{ return cnt%2 == 0 || cnt>=2*n; });
-            if (cnt >= 2*n) return;
+        for (int i = 1; i <= n; i++) {
+            sem_wait(&sem_z);
             printNumber(0);
-
-            cnt++;
-            cv.notify_all();
+            if (i%2 == 0)
+                sem_post(&sem_e);
+            else
+                sem_post(&sem_o);
         }
     }
 
     void even(function<void(int)> printNumber) {
-        while(true){
-            unique_lock<mutex> lock(mtx);
-            cv.wait(lock, [this]{ return cnt%4 == 3 || cnt>=2*n; });
-            if (cnt >= 2*n) return;
-            printNumber(evenN);
-            evenN+=2;
-            cnt++;
-            cv.notify_all();
+        for (int i = 2; i <= n; i+= 2) {
+            sem_wait(&sem_e);
+            printNumber(i);
+            sem_post(&sem_z);
         }
     }
 
     void odd(function<void(int)> printNumber) {
-        while(cnt< 2*n){
-            unique_lock<mutex> lock(mtx);
-            cv.wait(lock, [this]{ return cnt%4 == 1 || cnt>=2*n; });
-            if (cnt >= 2*n) return;
-            printNumber(oddN);
-
-            oddN+=2;
-            cnt++;
-            cv.notify_all();
+        for (int i = 1; i <= n; i+= 2) {
+            sem_wait(&sem_o);
+            printNumber(i);
+            sem_post(&sem_z);
         }
     }
+// };
 };
 
 // 25 min
