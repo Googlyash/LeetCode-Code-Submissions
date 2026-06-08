@@ -1,46 +1,35 @@
-// POTD Mar'3, 2025
-// Mar'3, 2025 11:34 am
+// POTD Jun'8, 2026
+// Jun'9, 2026 12:52 am
 
-class Solution
-{
+class Solution {
 public:
-    vector<int> pivotArray(vector<int> &nums, int pivot)
-    {
-        int low = 0;
-        int same = 0;
-        int high;
-        for (auto n : nums)
-        {
-            if (n < pivot)
-            {
-                ++low;
+    vector<int> pivotArray(vector<int>& nums, int pivot) {
+        int n= nums.size();
+
+        vector<int>pre, eq, aft;
+        for(auto it: nums){
+            if(it<pivot){
+                pre.push_back(it);
             }
-            else if (n == pivot)
-            {
-                ++same;
+            else if(it == pivot){
+                eq.push_back(it);
             }
-        }
-        vector<int> res(nums.size());
-        high = same + low;
-        same = low;
-        low = 0;
-        for (auto n : nums)
-        {
-            if (n < pivot)
-            {
-                res[low++] = n;
-            }
-            else if (n == pivot)
-            {
-                res[same++] = n;
-            }
-            else
-            {
-                res[high++] = n;
+            else {
+                aft.push_back(it);
             }
         }
-        return res;
+        vector<int>ans;
+        for(auto it:pre){
+            ans.push_back(it);
+        }
+        for(auto it:eq){
+            ans.push_back(it);
+        }
+        for(auto it:aft){
+            ans.push_back(it);
+        }
+        return ans;
     }
 };
 
-// Comments
+// 3 min
