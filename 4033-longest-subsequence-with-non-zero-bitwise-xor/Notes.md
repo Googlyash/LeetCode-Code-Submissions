@@ -1,1 +1,1 @@
-<h2>longest-subsequence-with-non-zero-bitwise-xor Notes</h2><hr>[ Time taken: 6m 40s ]
+<h2>longest-subsequence-with-non-zero-bitwise-xor Notes</h2><hr>[ Time taken: 7m 1s ]
