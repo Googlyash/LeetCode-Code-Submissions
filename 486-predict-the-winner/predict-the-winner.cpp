@@ -1,21 +1,28 @@
-//POTD July'28,2023
+// POTD Aug'22, 2026
+// Aug'22, 2026 09:40 pm
 
 class Solution {
-    bool checkWin(int ans,int total){
-	   return ans>=total-ans;
-    }
-    int maxScore(vector<int>&A,int total,int i,int j){
-        if(i>j) 
+    int solve(int l, int r, int chance, vector<int>&nums){
+        int n= nums.size();
+        if(l<0 || r>=n || l>r){
             return 0;
-      return total-min(maxScore(A,total-A[i],i+1,j),maxScore(A,total-A[j],i,j-1));
+        }
+        if(l==r){
+            return nums[l];
+        }
+        if(chance){
+            return min(-nums[l]+solve(l+1, r, 1-chance, nums), -nums[r]+solve(l, r-1, 1-chance, nums));
+        }
+        else {
+            return max(nums[l]+solve(l+1, r, 1-chance, nums), nums[r]+solve(l, r-1, 1-chance, nums));
+        }
     }
 public:
-    bool PredictTheWinner(vector<int>& nums) {
-        int total=0; 
-        for(auto x:nums)
-            total+=x;
-        return checkWin(maxScore(nums,total,0,nums.size()-1),total);
+    bool predictTheWinner(vector<int>& nums) {
+        int n= nums.size();
+
+        return solve(0, n-1, 0, nums) >= 0;
     }
 };
 
-//Comments
+// 5 min
