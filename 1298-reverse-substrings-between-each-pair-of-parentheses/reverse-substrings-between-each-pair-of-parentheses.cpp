@@ -11,7 +11,6 @@ class Solution {
                 pair<string, int>p= did(s, i+1);
                 s1+=p.first;
                 i=p.second;
-                // cout<<rev<<" "<<i<<endl;
             }
             else if(s[i]!=')'){
                 s1+= s[i];
