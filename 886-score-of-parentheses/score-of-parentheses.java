@@ -5,26 +5,21 @@ class Solution {
     public int scoreOfParentheses(String s) {
         int ans=0, n= s.length();
 
-        int cnt=-1, mx=0;
+        int cnt=0;
         char pre='(';
         for(int i=0;i<n;i++){
             char c= s.charAt(i);
             if(c=='('){
                 cnt++;
-                if(c!=pre){
-                    ans+= (int) Math.pow(2, mx);
-                }
             }
             else if(c==')'){
-                if(c!=pre){
-                    mx= cnt;
-                }
                 cnt--;
+                if(c!=pre){
+                    ans+= (int) Math.pow(2, cnt);
+                }
             }
-
             pre=c;
         }
-        ans+= (int) Math.pow(2, mx);
         return ans;
     }
 }
